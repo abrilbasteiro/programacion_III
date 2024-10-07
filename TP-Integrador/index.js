@@ -5,6 +5,7 @@ import handlebars from 'handlebars';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { conexion } from './db/conexion.js';
 
 dotenv.config();
 
@@ -58,6 +59,140 @@ app.post('/notificacion', (req, res) => {
     });
 
 })
+
+
+//get
+app.get('/reclamos-estados', async (req, res) => {
+try{
+
+    const sql = "SELECT * FROM reclamos_ WHERE activo = 1;";
+
+    const [result] = await conexion.query(sql);
+
+    res.status(200).json(result);
+
+} catch(err){
+
+    res.status(500).json({
+        mensaje: "Error interno."
+    })
+
+}
+})
+
+//get id
+
+app.get('/reclamos-estados/:idReclamosEstado', async (req, res) => {
+    try{
+        const idReclamosEstado = req.params.idReclamosEstado;
+        const sql = 'SELECT * FROM reclamos_ WHERE activo = 1 AND idReclamosEstado = ?';
+    
+        const [result] = await conexion.query(sql, [idReclamosEstado]);
+
+        if(result.length === 0){
+        return res.status(404).json({
+            mensaje: "No se encontro el estado."
+        })
+        }
+    
+        res.status(200).json(result);
+    
+    } catch(err){
+    
+        res.status(500).json({
+            mensaje: "Error interno."
+        })
+    
+    }
+    })
+
+// update patch
+
+app.patch('/reclamos-estados/:idReclamosEstado', async (req, res) => {
+    try{
+
+    const {descripcion, activo} = req.body;
+    if (!descripcion){
+        return res.status(404).json({
+            mensaje: "Se requiere el campo descripcion."
+        })
+    }
+
+    if (!activo){
+        return res.status(404).json({
+            mensaje: "Se requiere el campo activo."
+        })
+    }
+
+    const datos = {
+        descripcion,
+        activo
+    }
+
+    const idReclamosEstado = req.params.idReclamosEstado;
+
+    const sql = 'UPDATE reclamos_estado SET ? WHERE idReclamosEstado = ?'
+    const result = await conexion.query(sql, [datos, idReclamosEstado]);
+
+    if(result.affectedRows === 0){
+        return res.status(404).json({
+            mensaje: "No se pudo modificar."    
+        })
+    }
+
+    res.status(200).json({
+        mensaje: "Reclamo modificado."
+    })
+
+    }catch(err){
+    
+        res.status(500).json({
+            mensaje: "Error interno."
+        })
+    
+    }
+})
+
+//post                     hay que probarlo y mejorarlo
+
+app.post('/reclamos-estados', async (req, res) => {
+    try{
+
+    const {descripcion, activo} = req.body;
+    if (!descripcion){
+        return res.status(404).json({
+            mensaje: "Se requiere el campo descripcion."
+        })
+    }
+
+    if (!activo){
+        return res.status(404).json({
+            mensaje: "Se requiere el campo activo."
+        })
+    }
+
+    const datos = {
+        descripcion,
+        activo
+    }
+
+    const idReclamosEstado = req.params.idReclamosEstado;
+
+    const sql = 'INSERT INTO reclamos_estado VALUES (?)'
+    const result = await conexion.query(sql, [datos]);
+
+
+    res.status(200).json({
+        mensaje: "Reclamo creado."
+    })
+
+    }catch(err){
+    
+        res.status(500).json({
+            mensaje: "Error interno."
+        })
+    
+    }})
 
 const puerto = process.env.PUERTO;
 app.listen(puerto, () =>{
