@@ -69,6 +69,8 @@ try{
 
     const [result] = await conexion.query(sql);
 
+    console.log(result);
+
     res.status(200).json(result);
 
 } catch(err){
@@ -118,21 +120,16 @@ app.patch('/reclamos-estados/:idReclamosEstado', async (req, res) => {
         })
     }
 
-    if (!activo){
+    if (activo === undefined || activo === null){
         return res.status(404).json({
             mensaje: "Se requiere el campo activo."
         })
     }
 
-    const datos = {
-        descripcion,
-        activo
-    }
-
     const idReclamosEstado = req.params.idReclamosEstado;
 
-    const sql = 'UPDATE reclamos_estado SET ? WHERE idReclamosEstado = ?'
-    const result = await conexion.query(sql, [datos, idReclamosEstado]);
+    const sql = 'UPDATE reclamos_estado SET descripcion = ? , activo = ? WHERE idReclamosEstado = ?'
+    const result = await conexion.query(sql, [descripcion, activo, idReclamosEstado]);
 
     if(result.affectedRows === 0){
         return res.status(404).json({
@@ -141,7 +138,7 @@ app.patch('/reclamos-estados/:idReclamosEstado', async (req, res) => {
     }
 
     res.status(200).json({
-        mensaje: "Reclamo modificado."
+        mensaje: "Reclamo-estado modificado."
     })
 
     }catch(err){
@@ -159,28 +156,27 @@ app.post('/reclamos-estados', async (req, res) => {
     try{
 
     const {descripcion, activo} = req.body;
+
     if (!descripcion){
-        return res.status(404).json({
+        return res.status(400).json({
             mensaje: "Se requiere el campo descripcion."
         })
     }
 
-    if (!activo){
-        return res.status(404).json({
+    if (activo === undefined || activo === null){
+        return res.status(400).json({
             mensaje: "Se requiere el campo activo."
         })
     }
 
-    const datos = {
-        descripcion,
-        activo
+    const sql = 'INSERT INTO reclamos_estado (descripcion, activo) VALUES (?, ?)';
+    const [result] = await conexion.query(sql, [descripcion, activo]);
+
+    if(result.affectedRows === 0){
+        return res.status(500).json({
+            mensaje: "No se pudo modificar."    
+        })
     }
-
-    const idReclamosEstado = req.params.idReclamosEstado;
-
-    const sql = 'INSERT INTO reclamos_estado VALUES (?)'
-    const result = await conexion.query(sql, [datos]);
-
 
     res.status(200).json({
         mensaje: "Reclamo creado."
