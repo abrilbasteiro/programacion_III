@@ -5,7 +5,6 @@ export default class ReclamosEstados{
     buscarTodos = async () => {
         const sql = 'SELECT * FROM reclamos_estado WHERE activo = 1;';
         const [result] = await conexion.query(sql);
-        // res.status(200).json(result);
         return result
     }
 

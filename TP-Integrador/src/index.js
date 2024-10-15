@@ -12,6 +12,8 @@ import validateContentType from './middlewares/validateContentType.js';
 // rutas
 import { router as  v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
 import { router as v1ReclamosRouter } from './v1/routes/reclamosRoutes.js';
+import { router as v1UsuariosTipoRouter} from './v1/routes/usuariosTipoRoutes.js';
+import { router as v1reclamosTipoRouter} from './v1/routes/reclamosTipoRoutes.js';
 
 dotenv.config();
 
@@ -26,6 +28,9 @@ app.get('/', (req, res) => {
 
 app.use('/reclamos-estados', v1ReclamosEstadoRouter);
 app.use('/reclamos', v1ReclamosRouter);
+app.use('/usuarios-tipo', v1UsuariosTipoRouter);
+app.use('/reclamos-tipo', v1reclamosTipoRouter);
+
 
 
 const puerto = process.env.PUERTO;
