@@ -1,15 +1,15 @@
-import ReclamosService from "../services/reclamosService.js";
+import OficinasService from "../services/oficinasService.js";
 
-export default class ReclamosController{
+export default class OficinasController{
 
-    constructor(){
-        this.service = new ReclamosService();
+    constructor (){
+        this.service = new OficinasService();
     }
 
     buscarTodos = async (req, res) => {
         try{
-            const reclamos = await this.service.buscarTodos();
-            res.status(200).send(reclamos)
+            const oficinas = await this.service.buscarTodos();
+            res.status(200).send(oficinas)
 
         }catch (error){
             console.log(error);
@@ -21,15 +21,15 @@ export default class ReclamosController{
 
     buscarPorId = async (req, res) => {
         try{
-            const idReclamo = req.params.idReclamo;
-            const reclamo = await this.service.buscarPorId(idReclamo);
-            if (!reclamo) {
+            const idOficina = req.params.idOficina;
+            const oficina = await this.service.buscarPorId(idOficina);
+            if (!oficina) {
                 return res.status(404).send({
                     estado: "Falla",
-                    mensaje: "No se encontró el reclamo."
+                    mensaje: "No se encontró la oficina."
                 });
             }
-            res.status(200).send(reclamo)
+            res.status(200).send(oficina)
         }catch (error){
             console.log(error);
             res.status(500).send({
@@ -38,11 +38,10 @@ export default class ReclamosController{
         }
     }
 
-
     crear = async (req, res) => {
-        const { asunto, idReclamoTipo, idUsuarioCreador } = req.body;
+        const { nombre, idReclamoTipo, activo } = req.body;
         
-        if (asunto === undefined || idReclamoTipo === undefined || idUsuarioCreador === undefined) {
+        if (nombre === undefined || idReclamoTipo === undefined || activo === undefined) {
             return res.status(400).send({
                 estado:"Falla",
                 mensaje: "Faltan datos obligatorios."    
@@ -50,15 +49,15 @@ export default class ReclamosController{
         }
         
         try{
-            const reclamo = {
-                asunto, 
+            const oficina = {
+                nombre, 
                 idReclamoTipo, 
-                idUsuarioCreador
+                activo
             }
 
-            const nuevoReclamo = await this.service.crear(reclamo);
+            const nuevaOficina = await this.service.crear(oficina);
             res.status(201).send({
-                estado:"OK", data: nuevoReclamo
+                estado:"OK", data: nuevaOficina
             });
 
         }catch (error){
@@ -71,28 +70,28 @@ export default class ReclamosController{
 
     modificar = async (req, res) => {
         try {
-            const idReclamo = req.params.idReclamo;
-            const { asunto, descripcion, idReclamoTipo, idReclamoEstado } = req.body;
+            const idOficina = req.params.idOficina;
+            const { nombre, idReclamoTipo, activo } = req.body;
     
-            if (asunto === undefined || descripcion === undefined || idReclamoTipo === undefined || idReclamoEstado === undefined) {
+            if (nombre === undefined ||idReclamoTipo === undefined || activo === undefined) {
                 return res.status(400).send({
                     estado: "Falla",
                     mensaje: "Faltan datos obligatorios."
                 });
             }
     
-            const reclamoActualizado = await this.service.modificar(idReclamo, { asunto, descripcion, idReclamoTipo, idReclamoEstado});
+            const oficinaActualizada = await this.service.modificar(idOficina, { nombre, idReclamoTipo, activo});
     
-            if (!reclamoActualizado) {
+            if (!oficinaActualizada) {
                 return res.status(404).send({
                     estado: "Falla",
-                    mensaje: "No se encontró el reclamo para actualizar."
+                    mensaje: "No se encontró la oficina para actualizar."
                 });
             }
     
             res.status(200).send({
                 estado: "OK",
-                data: "Reclamo Actualizado"
+                data: "Oficina Actualizada"
             });
     
         } catch (error) {
@@ -101,7 +100,6 @@ export default class ReclamosController{
                 estado: "Falla", mensaje: "Error interno en servidor."
             });
         }
-    };    
-    
-    
+    }; 
+
 }
