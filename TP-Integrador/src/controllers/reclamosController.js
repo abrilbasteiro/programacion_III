@@ -26,7 +26,7 @@ export default class ReclamosController{
             if (!reclamo) {
                 return res.status(404).send({
                     estado: "Falla",
-                    mensaje: "No se encontró el estado."
+                    mensaje: "No se encontró el reclamo."
                 });
             }
             res.status(200).send(reclamo)
