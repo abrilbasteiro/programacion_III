@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default class AuthController{
-    login = async (req, res) => {        
+    login = async (req, res) => {
         passport.authenticate('local', {session: false}, (err, usuario, info) => {
             if (err || !usuario) {
                 return res.status(400).json({
@@ -24,4 +24,4 @@ export default class AuthController{
             })
         })(req, res);
     }
-}   
+}

@@ -1,15 +1,13 @@
 import Express from 'express';
-
 import UsuariosController from "../../controllers/usuariosController.js";
-
+import autorizarUsuarios from '../../middlewares/autorizarUsuarios.js';
 
 const router = Express.Router();
 const usuariosController = new UsuariosController();
 
-router.get('/', usuariosController.buscarTodos);
-router.get('/:idUsuario', usuariosController.buscarPorId);
-router.post('/', usuariosController.crear);
-router.patch('/:idUsuario', usuariosController.modificar);
-
+router.get('/', autorizarUsuarios([1]), usuariosController.buscarTodos);
+router.get('/:idUsuario', autorizarUsuarios([1]), usuariosController.buscarPorId);
+router.post('/', autorizarUsuarios([1]), usuariosController.crear);
+router.patch('/:idUsuario', autorizarUsuarios([3]), usuariosController.modificar);
 
 export {router};
