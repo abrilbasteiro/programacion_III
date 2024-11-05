@@ -1,16 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
-import handlebars from 'handlebars';
-import fs from 'fs';
-import path  from 'path';
-import { fileURLToPath } from 'url';
 
 //import morgan from 'morgan';
 import passport from 'passport';
 
 import { estrategia, validacion } from './config/passport.js';
-
 
 // middlewares
 import validateContentType from './middlewares/validateContentType.js';
@@ -24,9 +18,7 @@ import { router as v1reclamosTipoRouter} from './v1/routes/reclamosTipoRoutes.js
 import { router as v1oficinasRouter} from './v1/routes/oficinasRoutes.js';
 import { router as v1usuariosRouter} from './v1/routes/usuariosRoutes.js';
 import { router as v1usuariosOficina} from './v1/routes/usuariosOficinaRoutes.js';
-
-
-
+import { router as v1notificacion} from './v1/routes/notificacion.js';
 
 dotenv.config();
 
@@ -51,11 +43,7 @@ app.use('/reclamos-tipo', v1reclamosTipoRouter);
 app.use('/oficinas', v1oficinasRouter);
 app.use('/usuarios', v1usuariosRouter);
 app.use('/usuarios-oficina', v1usuariosOficina);
-
-
-
-
-
+app.use('/notificacion', v1notificacion);
 
 const puerto = process.env.PUERTO;
 app.listen(puerto, () => {

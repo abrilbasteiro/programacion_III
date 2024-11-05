@@ -3,7 +3,7 @@ import { conexion } from "./conexion.js";
 export default class Reclamos{
 
     buscarTodos = async () => {
-        const sql = `SELECT r.asunto, r.descripcion, r.fechaCreado, r.fechaFinalizado, r.fechaCancelado, 
+        const sql = `SELECT r.idReclamo, r.asunto, r.descripcion, r.fechaCreado, r.fechaFinalizado, r.fechaCancelado, 
                         r.idReclamoEstado, re.descripcion AS "Descripción Estado", 
                         r.idReclamoTipo, rt.descripcion AS "Descripción Tipo", 
                         u.nombre AS "Creado por"
