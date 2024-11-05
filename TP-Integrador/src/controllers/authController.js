@@ -18,7 +18,7 @@ export default class AuthController {
           res.send(err);
         }
         const token = jwt.sign(usuario, process.env.JWT_SECRET, {
-          expiresIn: "1m",
+          expiresIn: "15m",
         });
         return res.status(200).send({ estado: "OK", token: token });
       });

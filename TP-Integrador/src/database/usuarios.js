@@ -22,9 +22,9 @@ export default class Usuarios {
   };
 
   buscarPorId = async (idUsuario) => {
-    const sql = `SELECT CONCAT(u.nombre, ' ', u.apellido) as usuario
-            FROM usuarios  AS u
-            WHERE u.idUsuario = ?
+    const sql = `SELECT u.idUsuario, CONCAT(u.nombre, ' ', u.apellido) as usuario, u.idTipoUsuario
+                FROM usuarios AS u
+                WHERE u.idUsuario = ?
                 AND u.activo = 1;`;
     const [result] = await conexion.query(sql, [idUsuario]);
     return result[0];
