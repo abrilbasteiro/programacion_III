@@ -8,4 +8,16 @@ export default class UsuariosOficinaService{
     buscarTodos = () =>{
         return this.usuariosOficina.buscarTodos();
     }
+
+    buscarPorId = (idUsuarioOficina) =>{
+        return this.usuariosOficina.buscarPorId(idUsuarioOficina);
+    }
+
+    crear = (usuariosOficina) => {
+        return this.usuariosOficina.crear(usuariosOficina);
+    }
+
+    modificar = (idUsuarioOficina, datos) => {
+        return this.usuariosOficina.modificar(idUsuarioOficina, datos);
+    }
 }
