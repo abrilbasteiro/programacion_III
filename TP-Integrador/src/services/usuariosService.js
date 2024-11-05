@@ -6,6 +6,10 @@ export default class UsuariosService{
         this.usuarios = new Usuarios();
     }
 
+    buscar = (correoElectronico, contrasenia) => {
+        return this.usuarios.buscar(correoElectronico, contrasenia);
+    }
+
     buscarTodos = () => {
         return this.usuarios.buscarTodos();
     }
