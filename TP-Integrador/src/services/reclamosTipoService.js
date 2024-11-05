@@ -1,24 +1,23 @@
 import ReclamosTipo from "../database/reclamosTipo.js";
 
-export default class ReclamosTipoService{
-    constructor(){
-        this.reclamosTipo = new ReclamosTipo();
-    }
+export default class ReclamosTipoService {
+  constructor() {
+    this.reclamosTipo = new ReclamosTipo();
+  }
 
-    buscarTodos = () =>{
-        return this.reclamosTipo.buscarTodos();
-    }
+  buscarTodos = () => {
+    return this.reclamosTipo.buscarTodos();
+  };
 
-    buscarPorId = (idReclamosTipo) =>{
-        return this.reclamosTipo.buscarPorId(idReclamosTipo);
-    }
+  buscarPorId = (idReclamosTipo) => {
+    return this.reclamosTipo.buscarPorId(idReclamosTipo);
+  };
 
-    crear = (reclamosTipo) => {
-        return this.reclamosTipo.crear(reclamosTipo);
-    }
+  crear = (reclamosTipo) => {
+    return this.reclamosTipo.crear(reclamosTipo);
+  };
 
-    modificar = (idReclamosTipo, datos) => {
-        return this.reclamosTipo.modificar(idReclamosTipo, datos);
-    }
+  modificar = (idReclamosTipo, datos) => {
+    return this.reclamosTipo.modificar(idReclamosTipo, datos);
+  };
 }
-

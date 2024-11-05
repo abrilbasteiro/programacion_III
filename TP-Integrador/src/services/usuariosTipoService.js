@@ -1,23 +1,23 @@
 import UsuariosTipo from "../database/usuariosTipo.js";
 
 export default class UsuariosTipoService {
-    constructor() {
-        this.usuariosTipo = new UsuariosTipo();
-    }
+  constructor() {
+    this.usuariosTipo = new UsuariosTipo();
+  }
 
-    buscarTodos = () => {
-        return this.usuariosTipo.buscarTodos();
-    }
+  buscarTodos = () => {
+    return this.usuariosTipo.buscarTodos();
+  };
 
-    buscarPorId = (idUsuariosTipo) => { 
-        return this.usuariosTipo.buscarPorId(idUsuariosTipo); 
-    }
+  buscarPorId = (idUsuariosTipo) => {
+    return this.usuariosTipo.buscarPorId(idUsuariosTipo);
+  };
 
-    crear = (usuariosTipo) => {
-        return this.usuariosTipo.crear(usuariosTipo);
-    }
+  crear = (usuariosTipo) => {
+    return this.usuariosTipo.crear(usuariosTipo);
+  };
 
-    modificar = (idUsuariosTipo, datos) => {
-        return this.usuariosTipo.modificar(idUsuariosTipo, datos);
-    }
+  modificar = (idUsuariosTipo, datos) => {
+    return this.usuariosTipo.modificar(idUsuariosTipo, datos);
+  };
 }
