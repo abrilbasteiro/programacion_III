@@ -1,23 +1,23 @@
 import UsuariosOficina from "../database/usuariosOficina.js";
 
-export default class UsuariosOficinaService{
-    constructor(){
-        this.usuariosOficina = new UsuariosOficina();
-    }
+export default class UsuariosOficinaService {
+  constructor() {
+    this.usuariosOficina = new UsuariosOficina();
+  }
 
-    buscarTodos = () =>{
-        return this.usuariosOficina.buscarTodos();
-    }
+  buscarTodos = () => {
+    return this.usuariosOficina.buscarTodos();
+  };
 
-    buscarPorId = (idUsuarioOficina) =>{
-        return this.usuariosOficina.buscarPorId(idUsuarioOficina);
-    }
+  buscarPorId = (idUsuarioOficina) => {
+    return this.usuariosOficina.buscarPorId(idUsuarioOficina);
+  };
 
-    crear = (usuariosOficina) => {
-        return this.usuariosOficina.crear(usuariosOficina);
-    }
+  crear = (usuariosOficina) => {
+    return this.usuariosOficina.crear(usuariosOficina);
+  };
 
-    modificar = (idUsuarioOficina, datos) => {
-        return this.usuariosOficina.modificar(idUsuarioOficina, datos);
-    }
+  modificar = (idUsuarioOficina, datos) => {
+    return this.usuariosOficina.modificar(idUsuarioOficina, datos);
+  };
 }
