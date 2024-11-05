@@ -1,19 +1,20 @@
 {
-  "name": "tp-integrador",
+  "name": "clase",
   "version": "1.0.0",
-  "type": "module",
+  "description": "tfi prog3",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Abril, Candela, Diana, Guillermo",
+  "author": "cdf",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.21.0",
+    "express": "^4.19.2",
     "handlebars": "^4.7.8",
-    "mysql2": "^3.11.3",
-    "nodemailer": "^6.9.15"
+    "mysql2": "^3.11.2",
+    "nodemailer": "^6.9.15",
+    "pdfkit": "^0.15.1"
   }
 }
