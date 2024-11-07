@@ -10,7 +10,7 @@ router.get('/', reclamosController.buscarTodos);
 router.get('/:idReclamo', reclamosController.buscarPorId);
 router.post('/', reclamosController.crear);
 router.patch('/:idReclamo', reclamosController.modificar);
-router.patch('/reclamosPDF', reclamosController.reclamosPDF);
+router.get('/reclamosPDF', reclamosController.reclamosPDF);
 
 
 export {router};
