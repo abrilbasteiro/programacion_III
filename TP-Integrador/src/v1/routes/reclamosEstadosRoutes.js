@@ -6,12 +6,12 @@ const router = express.Router();
 
 const reclamosEstadosController = new ReclamosEstadosController();
 
-router.get("/", reclamosEstadosController.buscarTodos);
-router.get("/:idReclamosEstado", reclamosEstadosController.buscarPorId);
-router.post("/", reclamosEstadosController.crear);
+router.get("/", autorizarUsuarios([1, 2, 3]), reclamosEstadosController.buscarTodos);
+router.get("/:idReclamosEstado", autorizarUsuarios([1, 2, 3]), reclamosEstadosController.buscarPorId);
+router.post("/", autorizarUsuarios([1, 2]), reclamosEstadosController.crear);
 router.patch(
   "/:idReclamosEstado",
-  autorizarUsuarios([2]),
+  autorizarUsuarios([1, 2]),
   reclamosEstadosController.modificar,
 );
 
