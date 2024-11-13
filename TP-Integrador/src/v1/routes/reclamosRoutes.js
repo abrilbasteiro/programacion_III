@@ -18,5 +18,6 @@ router.patch(
   autorizarUsuarios([1]),
   reclamosController.modificar,
 );
+router.get('/reclamosPDF', reclamosController.reclamosPDF);
 
 export { router };

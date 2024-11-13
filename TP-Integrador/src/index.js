@@ -44,6 +44,7 @@ app.use("/oficinas", passport.authenticate("jwt", { session: false }), v1oficina
 app.use("/usuarios", passport.authenticate("jwt", { session: false }), v1usuariosRouter);
 app.use("/usuarios-oficina", passport.authenticate("jwt", { session: false }), v1usuariosOficina);
 app.use("/notificacion", passport.authenticate("jwt", { session: false }), v1notificacion);
+app.use('/estadistica', v1estadisticaRouter);
 
 const puerto = process.env.PUERTO;
 app.listen(puerto, () => {

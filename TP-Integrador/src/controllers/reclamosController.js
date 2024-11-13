@@ -1,4 +1,5 @@
 import ReclamosService from "../services/reclamosService.js";
+const PDFDocument = require('pdfkit');
 
 export default class ReclamosController {
   constructor() {
@@ -116,4 +117,33 @@ export default class ReclamosController {
       });
     }
   };
+
+  reclamosPDF = async (req, res) => {
+    try {
+    
+      const estadistica = await this.service.buscarTodos();
+
+      if(estadistica){
+          const doc = new PDFDocument();
+          
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', 'attachment; filename="reclamos.pdf"');
+      
+          doc.pipe(res);
+
+          //PDF
+          doc.text('Lista de datos en PDF');
+          estadistica.forEach( async element => {
+              doc.text(element.asunto + ' ' + element.idReclamoTipo + ' ' + element.idUsuarioCreador)
+          });
+
+          doc.end();
+      }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            estado: "Falla", mensaje: "Error interno en servidor."
+        });
+    }
+  }
 }

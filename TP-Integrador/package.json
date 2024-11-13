@@ -1,12 +1,16 @@
 {
   "name": "clase",
+  "name": "clase",
   "version": "1.0.0",
   "description": "tfi prog3",
+  "description": "tfi prog3",
   "main": "index.js",
+  "type": "module",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "cdf",
   "author": "cdf",
   "license": "ISC",
   "dependencies": {
@@ -19,6 +23,7 @@
     "nodemailer": "^6.9.15",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "pdfkit": "^0.15.1"
   }
 }
