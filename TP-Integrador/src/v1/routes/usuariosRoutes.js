@@ -18,4 +18,6 @@ router.patch(
   usuariosController.modificar,
 );
 
+router.post("/registrar", usuariosController.registrar);
+
 export { router };

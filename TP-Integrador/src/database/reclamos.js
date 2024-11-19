@@ -44,4 +44,20 @@ export default class Reclamos {
     const sql = "UPDATE reclamos SET ? WHERE idReclamo = ?";
     return conexion.query(sql, [datos, idReclamo]);
   };
+
+  buscarDatosReportePdf = async () => {
+    const sql = 'CALL `datosPDF`()';
+    const [result] = await conexion.query(sql);
+  
+    const datosReporte = {
+      reclamosTotales: result[0][0].reclamosTotales,
+      reclamosNoFinalizados: result[0][0].reclamosNoFinalizados,
+      reclamosFinalizados: result[0][0].reclamosFinalizados,
+      descripcionTipoRreclamoFrecuente: result[0][0].descripcionTipoRreclamoFrecuente,
+      cantidadTipoRreclamoFrecuente: result[0][0].cantidadTipoRreclamoFrecuente
+    };
+  
+    return datosReporte;
+  }
+  
 }

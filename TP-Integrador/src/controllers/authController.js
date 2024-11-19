@@ -6,6 +6,7 @@ dotenv.config();
 export default class AuthController {
   login = async (req, res) => {
     passport.authenticate("local", { session: false }, (err, usuario, info) => {
+
       if (err || !usuario) {
         return res.status(400).json({
           estado: "Falla",
@@ -14,13 +15,20 @@ export default class AuthController {
       }
 
       req.login(usuario, { session: false }, (err) => {
+
         if (err) {
-          res.send(err);
+          return res.status(500).send("Error en el login");
         }
-        const token = jwt.sign(usuario, process.env.JWT_SECRET, {
-          expiresIn: "15m",
-        });
-        return res.status(200).send({ estado: "OK", token: token });
+
+
+        const token = jwt.sign(
+          { idUsuario: usuario.idUsuario, correoElectronico: usuario.correoElectronico },
+          process.env.JWT_SECRET,
+          { expiresIn: "15m" }
+        );
+
+
+        return res.status(200).json({ estado: "OK", token });
       });
     })(req, res);
   };
