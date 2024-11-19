@@ -20,4 +20,8 @@ export default class ReclamosService {
   modificar = (idReclamo, datos) => {
     return this.reclamos.modificar(idReclamo, datos);
   };
+
+  generarInforme = (formato) =>{
+    return this.reclamos.buscarDatosReportePdf();
+  };
 }

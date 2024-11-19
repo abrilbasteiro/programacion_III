@@ -118,8 +118,11 @@ export default class ReclamosController {
   };
 
   informe = async (req, res) => {
+    const formatosPermitidos = ["pdf", "csv"];
     try {
-      const formato = req.query.formato;
+      const formato = req.body.formato;
+      
+      console.log(formato)
       if (!formato || !formatosPermitidos.includes(formato)) {
         return res.status(400).send({
           estado: "Falla",
