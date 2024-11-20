@@ -114,6 +114,43 @@ export default class ReclamosController {
         estado: "Falla",
         mensaje: "Error interno en servidor.",
       });
-    }
+    } 
   };
+
+  informe = async (req, res) => {
+    const formatosPermitidos = ["pdf", "csv"];
+    try {
+      const formato = req.body.formato;
+
+      if (!formato || !formatosPermitidos.includes(formato)) {
+        return res.status(400).send({
+            estado:"Falla",
+            mensaje: "Formato inválido para el informe."
+        })
+      }
+
+      const {buffer, path, headers} = await this.service.generarInforme(formato);
+
+      res.set(headers)
+
+      if (formato === 'pdf') {
+          res.status(200).end(buffer);
+      } else if (formato === 'csv') {
+          res.status(200).download(path, (err) => {
+              if (err) {
+                  return res.status(500).send({
+                      estado:"Falla",
+                      mensaje: " No se pudo generar el informe."    
+                  })
+              }
+          })
+      }
+  }catch(error){
+      console.log(error)
+      res.status(500).send({
+          estado:"Falla", mensaje: "Error interno en servidor."
+      });
+  }
+  }
+  
 }

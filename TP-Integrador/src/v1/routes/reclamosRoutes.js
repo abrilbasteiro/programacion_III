@@ -6,17 +6,11 @@ const router = express.Router();
 
 const reclamosController = new ReclamosController();
 
-router.get("/", autorizarUsuarios([1]), reclamosController.buscarTodos);
-router.get(
-  "/:idReclamo",
-  autorizarUsuarios([3, 2, 1]),
-  reclamosController.buscarPorId,
-);
+router.get("/todos", autorizarUsuarios([3, 2, 1]), reclamosController.buscarTodos);
+router.get("/informe", autorizarUsuarios([1]), reclamosController.informe);
+router.get( "/:idReclamo", autorizarUsuarios([3, 2, 1]), reclamosController.buscarPorId,);
 router.post("/", autorizarUsuarios([3, 1]), reclamosController.crear);
-router.patch(
-  "/:idReclamo",
-  autorizarUsuarios([1]),
-  reclamosController.modificar,
+router.patch("/:idReclamo", autorizarUsuarios([1]), reclamosController.modificar,
 );
 
 export { router };
