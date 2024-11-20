@@ -59,5 +59,18 @@ export default class Reclamos {
   
     return datosReporte;
   }
+
+  buscarDatosReporteCsv = async () => {
+    const sql = `SELECT r.idReclamo as 'reclamo', rt.descripcion as 'tipo', re.descripcion AS 'estado',
+                 DATE_FORMAT(r.fechaCreado, '%Y-%m-%d %H:%i:%s') AS 'fechaCreado', CONCAT(u.nombre, ' ', u.apellido) AS 'cliente'
+                FROM reclamos AS r 
+                INNER JOIN reclamos_tipo AS rt ON rt.idReclamosTipo = r.idReclamoTipo 
+                INNER JOIN reclamos_estado AS re ON re.idReclamosEstado = r.idReclamoEstado 
+                INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador 
+                    WHERE r.idReclamoEstado <> 4;`;
+
+    const [result] = await conexion.query(sql);
+    return result;
+}
   
 }
